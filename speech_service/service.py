@@ -1,7 +1,6 @@
-import time 
 from openai import OpenAI
 from playsound import playsound
-import pyaudio
+import os
 
 
 class SpeechService:
@@ -28,7 +27,11 @@ class SpeechService:
             voice=self.voice,
             input=text
         )
-        response.stream_to_file(output_path)
+        if not os.path.exists('tmp'):
+            os.makedirs('tmp')
+        if os.path.exists(output_path):
+            os.remove(output_path)
+        response.write_to_file(output_path)
         if play:
             self.play_audio(output_path)
 

@@ -22,21 +22,21 @@ class Transcipt:
     context: str
     responses: Response
     @classmethod
-    def create_context_from_job_description(cls, job_description: str) -> str:
+    def create_context_from_job_description(cls, job_description: str) -> Response:
         context = f"You are an interviewer hiring for a job. The following is the job description: {job_description}. Pretend the interview is happening right now, and ask the candidate a question."
         responses = [Response('system', context)]
         return cls(context, responses)
 
-    def user_response(self, response: str) -> None:
+    def user_response(self, response: str) -> Response:
         response = Response('user', response)
         self.responses.append(response)
 
-    def interviewer_response(self, response: str) -> None:
+    def interviewer_response(self, response: str) -> Response:
         response = Response('assistant', response)
         self.responses.append(response)
         return response
     
-    def system_instruction(self, instruction: str) -> None:
+    def system_instruction(self, instruction: str) -> Response:
         self.responses.append(Response('system', instruction))
 
     @property
@@ -59,16 +59,16 @@ class Interviewer:
         self.model = model
         self.rounds = rounds
 
-    def _generate_response(self) -> str:
+    def _generate_response(self) -> Response:
          reponse = self.client.chat.completions.create(model=self.model, messages=self.transcipt.data)
          return self.transcipt.interviewer_response(reponse.choices[0].message.content)
     
-    def start_interview(self) -> str:
+    def start_interview(self) -> Response:
         self.transcipt = Transcipt.create_context_from_job_description(self.job_description)
         self.transcipt.user_response("Please ask the first question.")
         return self._generate_response()
     
-    def respond(self, reply: str) -> str:
+    def respond(self, reply: str) -> Response:
         self.transcipt.user_response(reply)
         self.rounds -= 1
         if self.rounds > 1:
@@ -78,15 +78,15 @@ class Interviewer:
         else:
             return self.end_interview()
     
-    def qna(self):
+    def qna(self) -> Response:
         self.transcipt.system_instruction("You have asked the last question. End this interview after checking if the candidate has any questions.")
         return self._generate_response()
 
-    def end_interview(self) -> str:
+    def end_interview(self) -> Response:
         self.transcipt.system_instruction("Answer candidate's questions, then end the interview.")
         return self._generate_response()
         
-    def evaluate_interview(self) -> str:
+    def evaluate_interview(self) -> Response:
         self.transcipt.system_instruction("Now suppose you are a career coach having a mock interview with the candidate. Provide strict and critical feedback on the interview, as well as a score out of 69.")
         return self._generate_response()
 

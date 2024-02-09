@@ -4,6 +4,9 @@ from speech_service import SpeechService
 ROUNDS = 4
 VOICE = 'shimmer'
 
+with open('tmp/job_description.txt', 'r') as f:
+    jd = f.read()
+
 interviewer = Interviewer(jd, ROUNDS)
 speech = SpeechService(voice=VOICE)
 
@@ -12,6 +15,7 @@ speech.text_to_speech(starting_question.message)
 
 for _ in range(ROUNDS):
     reply = input("Your response: ")
-    speech.speech_to_text(interviewer.respond(reply).message)
+    response = interviewer.respond(reply)
+    speech.text_to_speech(response.message)
 
 speech.text_to_speech(interviewer.evaluate_interview().message)
