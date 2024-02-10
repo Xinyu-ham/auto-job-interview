@@ -12,7 +12,7 @@ If windows, your OS should be `windows` else `macos`
 ## Usage
 0. Ensure you have your OpenAI API key stored in environment variable as `OPENAI_API_KEY`
     ```bash
-    export OPENAI_API_KEY = <your api key here>
+    export OPENAI_API_KEY="<your api key here>"
     ```
 1. Create a file named `job_description.txt` in the `tmp` directory of the project.
 2. Run the following command:
