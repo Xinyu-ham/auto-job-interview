@@ -36,7 +36,10 @@ def main(jd_source: str='tmp/job_description.txt') -> None:
         response = interviewer.respond(reply)
         speech.text_to_speech(response.message)
 
-    speech.text_to_speech(interviewer.evaluate_interview().message)
+
+    msg = interviewer.evaluate_interview().message
+    print(msg)
+    speech.text_to_speech(msg)
 
 if __name__ == '__main__':
     main()
