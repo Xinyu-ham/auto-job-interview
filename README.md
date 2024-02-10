@@ -1,4 +1,21 @@
-# auto-job-interview
+![pip installation](svg/python3_ver.svg)
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://www.notion.so/workmate/Recommendation-system-19a5c980e65f4b879dcb9fdf5dfe1f81">
+    <img src="https://static.thenounproject.com/png/1237093-200.png" alt="Logo" width="120" height="120">
+  </a>
+
+  <h3 align="center">Automated job interview simulation</h3>
+
+  <p align="center">
+    Practice doing job interview with AI
+    <br />
+    <a href="#infra-overview"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+  </p>
+</div>
 ## Installation
 ```bash
 python -m install
