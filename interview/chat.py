@@ -1,5 +1,6 @@
 from openai import OpenAI
 from dataclasses import dataclass
+from config import Config
 
 @dataclass
 class Response:
@@ -44,19 +45,24 @@ class Transcipt:
         return [{'role': response.role, 'content': response.message} for response in self.responses]
 
 class Interviewer:
+    cfg: Config
     job_description: str
     client: OpenAI
     model: str
     rounds: int
 
-    def __init__(self, job_description: str, rounds: int=3, openai_api_key: str='', model: str='gpt-3.5-turbo') -> None:
+    def __init__(self, cfg: Config, job_description: str, rounds: int=3, openai_api_key: str='', model: str='') -> None:
+        self.cfg = cfg
         self.job_description = job_description
         self.transcipt = Transcipt.create_context_from_job_description(job_description) 
         if openai_api_key:
             self.client = OpenAI(openai_api_key)
         else:
             self.client = OpenAI()
-        self.model = model
+        if not model:
+            self.model = self.cfg.TEXT_MODEL
+        else:
+            self.model = model
         self.rounds = rounds
 
     def _generate_response(self) -> Response:

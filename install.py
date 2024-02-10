@@ -14,6 +14,9 @@ requirements_files = {
 # Check if the current OS is in the requirements_files dictionary
 if current_os in requirements_files:
     requirements_file = requirements_files[current_os]
+    if current_os == 'Darwin':
+        # macOS requires an additional dependency
+        subprocess.call(['brew', 'install', 'portaudio'])
 else:
     # Default to a generic requirements file if OS is not recognized
     requirements_file = 'requirements.txt'

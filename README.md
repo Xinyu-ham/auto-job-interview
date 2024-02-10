@@ -35,18 +35,18 @@ If windows, your OS should be `windows` else `macos`
 1. Create a file named `job_description.txt` in the `tmp` directory of the project.
 2. Run the following command:
     
-    > NOTE: `--input-ui` can be either `text` or `voice`, voice is currently WIP and not available
+    > NOTE: `--input-ui` can be either `text` or `voice`, voice is the default
 
     Windows:
     ```bash
-    python -m main --input-ui text
+    python -m main --input-ui voice
     ```
     MacOS
     ```bash
-    python3 -m main --input-ui text
+    python3 -m main --input-ui voice
     ```
     (Optional) You can also configure interview with arguments
     ```bash
-    python -m main --input-ui text --voice shimmer --rounds 3
+    python -m main --input-ui voice --voice shimmer --rounds 3
     ```
 
