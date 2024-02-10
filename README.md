@@ -11,7 +11,7 @@
   <p align="center">
     Practice doing job interview with AI
     <br />
-    <a href="#infra-overview"><strong>Explore the docs »</strong></a>
+    <a href="#Installation"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
