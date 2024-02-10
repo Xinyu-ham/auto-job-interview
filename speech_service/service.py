@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 
 from config import Config
 
@@ -38,8 +37,6 @@ class SpeechService:
             input=text
         )
 
-        
-
         if not output_path:
             output_path = 'output.wav'
         output_path = os.path.join(self.cfg.TEMPORARY_FOLDER, 'output.wav')
@@ -48,10 +45,6 @@ class SpeechService:
         response.write_to_file(output_path)
         if play:
             self.play_audio(output_path)
-        
-        now = datetime.now().strftime('%Y%m%d%H%M%S')
-        demo_file = f'test/ai_demo_{now}.wav'
-        response.write_to_file(demo_file)
 
     def record_audio(self, output_path='') -> str:
         if not output_path:
@@ -95,14 +88,6 @@ class SpeechService:
         print("Recording finished.")
 
         with wave.open(output_path, 'wb') as wf:
-            wf.setnchannels(CHANNELS)
-            wf.setsampwidth(audio.get_sample_size(FORMAT))
-            wf.setframerate(RATE)
-            wf.writeframes(b''.join(frames))
-
-        now = datetime.now().strftime('%Y%m%d%H%M%S')
-        demo_file = f'test/me_demo_{now}.wav'
-        with wave.open(demo_file, 'wb') as wf:
             wf.setnchannels(CHANNELS)
             wf.setsampwidth(audio.get_sample_size(FORMAT))
             wf.setframerate(RATE)
